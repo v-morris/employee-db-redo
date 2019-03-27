@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#employee-head{
+  background-color: #54707F;
+}
+
+.table-head .employee .empBoxes{
+  color:white;
+  font-size:18px;
+  font-weight: 500;
+  padding:0;
+  text-shadow: 2px 2px #303030;
+}
+
+.employee{
+  background-color: #A9E0FF;
+  display: flex;
+  flex-direction: row; 
+  width: 90vw; 
+  justify-content: center;
+  align-items: center;
+}
+
+.empBoxes{
+  color:#2A3840;
+  font-size:16px;
+  font-weight: 500;
+  padding:0;
+  height: 50px;
+  display: flex;
+  flex:4;
+  justify-content: center;
+  align-items: center;
+}
+
+.empId{
+  flex:1;
+}
+
+.editBtn{
+  width:60px;
+  height:100%;
+  outline: none;
+  color:white;
+  border:1px solid #2A3840; 
+  background-color: #2A3840;
+  flex:2;
+}
+
+.deleteBtn{
+  width:60px;
+  height:100%;
+  outline: none;
+  border:1px solid #2A3840; 
+  background-color: #DC143C;
+  color:white;
+  flex:2;
+  }
+
+  .editBtn:hover{
+    background-color: #7FA8BF;
+    cursor:pointer;
+  }
+
+  .deleteBtn:hover{
+    background-color: #800000;
+    cursor:pointer;
+  }
+
+  .hideBtn{
+    visibility: hidden;
+    width:60px;
+    height:100%;
+    outline: none;
+    flex:2;
+    }
