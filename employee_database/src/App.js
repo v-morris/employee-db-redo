@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import AllEmployees from './components/AllEmployees';
+import NewEmployee from './components/NewEmployee';
 
 class App extends Component {
   constructor(props) {
@@ -7,6 +9,29 @@ class App extends Component {
     this.state = {
       employees: []
     }
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.addNewEmployee = this.addNewEmployee.bind(this)
+  }
+
+  handleFormSubmit(first_name, last_name, title, manager_id){
+    let body = JSON.stringify({employee: {first_name: first_name, last_name: last_name, title: title, manager_id:manager_id} })
+  fetch('http://localhost:3001/api/v1/employees', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body,
+    }).then(response => response.json())
+    .then((employee)=>{
+      this.addNewFruit(employee)
+    })
+    
+  }
+
+  addNewEmployee(employee){
+    this.setState({
+      employees: this.state.employees.concat(employee)
+    })
   }
 
   componentDidMount() {
@@ -21,6 +46,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Employee Database</h1>
+        <NewEmployee handleFormSubmit = {this.handleFormSubmit}/>
         <table className="table-head">
           <tbody>
             <tr className="employee" id= "employee-head">
@@ -32,22 +58,8 @@ class App extends Component {
             </tr>
           </tbody>
         </table>
+      <AllEmployees employees={this.state.employees}/>
 
-        {this.state.employees.map(employee => {
-          return (
-            <table key={employee.id}>
-              <tbody>
-                <tr className="employee">
-                  <td className="empBoxes empId">{employee.id}</td>
-                  <td className="empBoxes">{employee.first_name} {employee.last_name}</td>
-                  <td className="empBoxes">{employee.title}</td>
-                  <td><button className="empBoxes editBtn"><h4>Edit</h4></button></td>
-                  <td><button className="empBoxes deleteBtn"><h4>Delete</h4></button></td>
-                </tr>
-              </tbody>
-            </table>
-          )
-        })}
       </div>
     )
   }
