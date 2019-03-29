@@ -1,4 +1,5 @@
 import React from 'react';
+import Employee from './Employee';
 
 const AllEmployees = (props) => {
 
@@ -6,13 +7,7 @@ const AllEmployees = (props) => {
         return (
             <table key={employee.id}>
                 <tbody>
-                    <tr className="employee">
-                        <td className="empBoxes empId">{employee.id}</td>
-                        <td className="empBoxes">{employee.first_name} {employee.last_name}</td>
-                        <td className="empBoxes">{employee.title}</td>
-                        <td><button className="empBoxes editBtn"><h4>Edit</h4></button></td>
-                        <td><button className="empBoxes deleteBtn"><h4>Delete</h4></button></td>
-                    </tr>
+                    <Employee employee={employee}  handleEdit= {props.handleEdit} handleDelete = {props.handleDelete}/>
                 </tbody>
             </table>
         )

@@ -1,7 +1,7 @@
 class Api::V1::EmployeesController < ApplicationController
 
     def index
-        render json: Employee.all 
+        render json: Employee.all
     end
 
     def create

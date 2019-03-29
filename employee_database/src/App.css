@@ -39,7 +39,8 @@
 }
 
 .empId{
-  flex:1;
+  border:1px solid black;
+  flex:2;
 }
 
 .editBtn{
@@ -49,7 +50,7 @@
   color:white;
   border:1px solid #2A3840; 
   background-color: #2A3840;
-  flex:2;
+  flex:1;
 }
 
 .deleteBtn{
@@ -70,6 +71,14 @@
   .deleteBtn:hover{
     background-color: #800000;
     cursor:pointer;
+  }
+
+  .ceoDelete{
+    background-color: grey;
+  }
+  .ceoDelete:hover{
+  background-color: grey;
+  cursor:default;
   }
 
   .hideBtn{
