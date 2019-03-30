@@ -2,7 +2,6 @@ import React from 'react';
 
 const NewEmployee = (props) =>{
     let formFields = {}
-    console.log("form fields",formFields)
     return(
         <form onSubmit={(e) => {props.handleFormSubmit(
             formFields.first_name.value,
