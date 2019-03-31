@@ -11,19 +11,44 @@ class Employee extends React.Component {
 
     handleEdit() {
         if (this.state.editable) {
-            let id = this.props.employee.id
-            let firstName = this.firstName.value
-            let lastName = this.lastName.value
-            let title = this.title.value
+            let id
+            let firstName
+            let lastName
+            let title
             let managerId
-            if (this.props.employee.title !== 'CEO') {
-                managerId = this.managerId.value
+            let employee
+            let search = this.props.search
+
+            if (!search) {
+                id = this.props.employee.id
+                firstName = this.firstName.value
+                lastName = this.lastName.value
+                title = this.title.value
+                if (this.props.employee.title !== 'CEO') {
+                    managerId = this.managerId.value
+                }
+                else {
+                    managerId = null
+                }
+                employee = { id: id, first_name: firstName, last_name: lastName, title: title, manager_id: managerId }
+                this.props.handleEdit(employee)
             }
             else {
-                managerId = null
+                id = this.props.filter.id
+                firstName = this.firstName.value
+                lastName = this.lastName.value
+                title = this.title.value
+                if (this.props.filter.title !== 'CEO') {
+                    managerId = this.managerId.value
+                }
+                else {
+                    managerId = null
+                }
+                employee = { id: id, first_name: firstName, last_name: lastName, title: title, manager_id: managerId }
+                this.props.handleEdit(employee)
+                console.log("employeee" , employee)
             }
-            let employee = { id: id, first_name: firstName, last_name: lastName, title: title, manager_id: managerId }
-            this.props.handleEdit(employee)
+
         }
         this.setState({
             editable: !this.state.editable

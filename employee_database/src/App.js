@@ -53,15 +53,16 @@ class App extends Component {
     }
     else {
       this.setState({
-        filtered:[],
+        filtered: [],
         search: searchPresent
       })
     }
     console.log("search", search)
     console.log("matches", matches)
     console.log("filter", this.state.filtered)
-    console.log("search",this.state.search)
+    console.log("search", this.state.search)
   }
+
 
   handleEdit(employee) {
     fetch(`http://localhost:3001/api/v1/employees/${employee.id}`,
@@ -77,14 +78,27 @@ class App extends Component {
   }
 
   updateEmployee(employee) {
-    let employeeIndex = this.state.employees.findIndex(emp => { return emp.id === employee.id }) // Find Employee Index in array so .splice can be used to render in same location
-    let newEmployees = this.state.employees.filter(emp => emp.id !== employee.id)
+    let employeeIndex;
+    let newEmployees;
+    let filterIndex;
+    let newFilter;
+    employeeIndex = this.state.employees.findIndex(emp => { return emp.id === employee.id }) // Find Employee Index in array so .splice can be used to render in same location
+    newEmployees = this.state.employees.filter(emp => emp.id !== employee.id)
     newEmployees.splice(employeeIndex, 0, employee) //places employee after update back at the original employee index
     this.setState({
       employees: newEmployees
     })
-  }
 
+    if (this.state.search) {
+      filterIndex = this.state.filtered.findIndex(emp => { return emp.id === employee.id }) // Find Employee Index in array so .splice can be used to render in same location
+      newFilter = this.state.filtered.filter(emp => emp.id !== employee.id)
+      newFilter.splice(filterIndex, 0, employee) //places employee after update back at the original employee index
+      this.setState({
+        filtered: newFilter
+      })
+    }
+
+  }
 
   handleDelete(id) {
     fetch(`http://localhost:3001/api/v1/employees/${id}`,
@@ -103,7 +117,33 @@ class App extends Component {
     this.setState({
       employees: newEmployees
     })
+
+   if(this.state.search) {
+      let newFilter = this.state.filtered.filter((employee) => employee.id !== id)
+      this.setState({
+        filtered: newFilter
+      })
+    }
   }
+
+  // deleteEmployee(id) {
+  //   if (!this.state.search) {
+  //     let newEmployees = this.state.employees.filter((employee) => employee.id !== id)
+  //     this.setState({
+  //       employees: newEmployees
+  //     })
+  //   }
+  //   else {
+  //     let newFilter = this.state.filtered.filter((employee) => employee.id !== id)
+  //     this.setState({
+  //       filtered: newFilter
+  //     })
+  //     let newEmployees = this.state.employees.filter((employee) => employee.id !== id)
+  //     this.setState({
+  //       employees: newEmployees
+  //     })
+  //   }
+  // }
 
   componentDidMount() {
     fetch('http://localhost:3001/api/v1/employees.json')
@@ -123,14 +163,16 @@ class App extends Component {
           <tbody>
             <tr className="employee" id="employee-head">
               <td className="empBoxes empId">ID</td>
-              <td className="empBoxes">Name</td>
+              <td className="empBoxes">First Name</td>
+              <td className="empBoxes">Last Name</td>
               <td className="empBoxes">Title</td>
+              <td className="empBoxes">Manager ID</td>
               <td ><button className="empBoxes hideBtn" >Delete</button></td>
               <td><button className="empBoxes hideBtn" >Delete</button></td>
             </tr>
           </tbody>
         </table>
-        <AllEmployees employees={this.state.employees} handleEdit={this.handleEdit} handleDelete={this.handleDelete} search={this.state.search} filtered ={this.state.filtered} />
+        <AllEmployees employees={this.state.employees} handleEdit={this.handleEdit} handleDelete={this.handleDelete} search={this.state.search} filtered={this.state.filtered} />
       </div>
     )
   }
